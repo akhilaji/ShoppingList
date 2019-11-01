@@ -10,6 +10,7 @@
 		156D20249AF3077B72C2D1ED /* Pods_ShoppingList_ShoppingListUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71F07253CF9D448B8F6543FE /* Pods_ShoppingList_ShoppingListUITests.framework */; };
 		2C49A09AD7C576590ADD2A2B /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE698341332C63E14CB276E /* Pods_ShoppingList.framework */; };
 		49F74C56FEF66478EE830056 /* Pods_ShoppingListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DB7A1813A512C615F4286ED /* Pods_ShoppingListTests.framework */; };
+		EB1EAB51236CAABE007200D5 /* UserListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1EAB50236CAABE007200D5 /* UserListsTableViewCell.swift */; };
 		EB42C051236B9B67000FFC01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C050236B9B67000FFC01 /* AppDelegate.swift */; };
 		EB42C053236B9B67000FFC01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C052236B9B67000FFC01 /* SceneDelegate.swift */; };
 		EB42C055236B9B67000FFC01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C054236B9B67000FFC01 /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 		EB42C068236B9B6A000FFC01 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C067236B9B6A000FFC01 /* ShoppingListTests.swift */; };
 		EB42C073236B9B6A000FFC01 /* ShoppingListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C072236B9B6A000FFC01 /* ShoppingListUITests.swift */; };
 		EB42C081236BA047000FFC01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB42C080236BA047000FFC01 /* GoogleService-Info.plist */; };
+		EBA10000236CE92C00F729C7 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,7 @@
 		7EE698341332C63E14CB276E /* Pods_ShoppingList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DB7A1813A512C615F4286ED /* Pods_ShoppingListTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingListTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AEEFBD6FD66708BB5A80FA /* Pods-ShoppingListTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShoppingListTests.debug.xcconfig"; path = "Target Support Files/Pods-ShoppingListTests/Pods-ShoppingListTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EB1EAB50236CAABE007200D5 /* UserListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListsTableViewCell.swift; sourceTree = "<group>"; };
 		EB42C04D236B9B67000FFC01 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB42C050236B9B67000FFC01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB42C052236B9B67000FFC01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +66,7 @@
 		EB42C072236B9B6A000FFC01 /* ShoppingListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListUITests.swift; sourceTree = "<group>"; };
 		EB42C074236B9B6A000FFC01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB42C080236BA047000FFC01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,8 @@
 				EB42C05B236B9B6A000FFC01 /* LaunchScreen.storyboard */,
 				EB42C05E236B9B6A000FFC01 /* Info.plist */,
 				EB42C080236BA047000FFC01 /* GoogleService-Info.plist */,
+				EB1EAB50236CAABE007200D5 /* UserListsTableViewCell.swift */,
+				EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */,
 			);
 			path = ShoppingList;
 			sourceTree = "<group>";
@@ -411,8 +417,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB1EAB51236CAABE007200D5 /* UserListsTableViewCell.swift in Sources */,
 				EB42C055236B9B67000FFC01 /* ViewController.swift in Sources */,
 				EB42C051236B9B67000FFC01 /* AppDelegate.swift in Sources */,
+				EBA10000236CE92C00F729C7 /* PersistanceManager.swift in Sources */,
 				EB42C053236B9B67000FFC01 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,6 +598,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KCESWH6Z35;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -609,6 +618,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KCESWH6Z35;
 				INFOPLIST_FILE = ShoppingList/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
