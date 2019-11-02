@@ -34,28 +34,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //print("ViewDidLoad")
         //print(persistanceManager.userLists)
         userLists = self.persistanceManager.userLists
-        loadData()
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //count()
         //print(persistanceManager.userLists.count)
-        print(counter)
-        //print(userLists!.count)
-        //return persistanceManager.getCount()
-        return counter
-        //let value = persistanceManager.userLists.count()
-        //return userLists!.count
-        //return 3
+        print(persistanceManager.userLists.count)
+        return persistanceManager.userLists.count
     }
 
     //Add
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
         let cell = tableView.dequeueReusableCell(withIdentifier: "userListCell", for: indexPath) as! UserListsTableViewCell
-        //loadData()
-        //let listItem = persistanceManager.userLists[indexPath.row]
-        let listItem = listNames[indexPath.row]
+        //persistanceManager.loadData()
+        let listItem = persistanceManager.userLists[indexPath.row]
         print(listNames)
         cell.listName.text = listItem
         //tableView.reloadData()
@@ -100,78 +92,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.present(alert, animated: true)
     }
     
-    
-    
-//    func count() -> Int{
-//        var counter = 0
-//        db.collection("UserLists").getDocuments(){
-//            (querySnapshot, err) in
-//
-//            if let err = err{
-//                print("Error getting documents: \(err)");
-//            }
-//            else{
-//                for document in querySnapshot!.documents {
-//                    counter += 1
-//                    print("\(document.documentID) => \(document.data())");
-//                }
-//                print("Count = \(counter)");
-//            }
-//        }
-//        return counter
-//    }
-
-//    func loadData() {
-//        db.collection("UserLists").getDocuments() { (querySnapshot, err) in
-//            if let err = err {
-//                print("Error getting documents: \(err)")
-//            } else {
-//                for document in querySnapshot!.documents {
-//
-//                    self.userLists.append(document.documentID)
-//                }
-//            }
-//            print(self.userLists)
-//            self.listsTable.reloadData()
-//        }
-//
-//    }
-    
-    func loadData(){
-
-
-        db.collection("UserLists").getDocuments { (querySnapshot, error) in
-            if let error = error
-            {
-                print("\(error.localizedDescription)")
-            }
-            else
-            {
-
-                 for document in (querySnapshot?.documents)! {
-                     if let Title = document.data()["title"] as? String {
-                         print(Title)
-                         //self.title = Title
-                         let title = Title
-                         //job.title = Title
-
-                        self.listNames.append(title)
-                         //self.numOfCells += 1
-                     }
-                 }
-
-                DispatchQueue.main.async
-                {
-                    self.listsTable.reloadData()
-                }
-
-            }
-        }
-
-    }
-
-    
     @IBAction func reloadTable(_ sender: Any) {
+        counter = persistanceManager.getCount()
         self.listsTable.reloadData()
     }
     

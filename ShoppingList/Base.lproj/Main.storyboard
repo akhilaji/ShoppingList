@@ -38,8 +38,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="349" height="45.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="List Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1a-W1-2vD">
-                                                    <rect key="frame" x="15" y="11.999999999999998" width="77" height="21.333333333333329"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="List Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1a-W1-2vD">
+                                                    <rect key="frame" x="15" y="12" width="326" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -58,7 +58,7 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="BQ3-jY-8dA"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="0mH-Il-QnE"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Qvz-pZ-YpQ"/>
                                 </connections>
                             </tableView>
@@ -99,8 +99,12 @@
                             <constraint firstAttribute="bottom" secondItem="vdF-op-Cu5" secondAttribute="bottom" id="TT9-Ao-L43"/>
                             <constraint firstItem="zUs-WO-UMW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="UEi-Z7-bdt"/>
                             <constraint firstItem="zUs-WO-UMW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="cFw-66-kdw"/>
+                            <constraint firstItem="I9U-gS-AHh" firstAttribute="top" secondItem="zUs-WO-UMW" secondAttribute="bottom" constant="8" id="g2h-hr-n0D"/>
                             <constraint firstItem="qMr-9R-gKV" firstAttribute="top" secondItem="I9U-gS-AHh" secondAttribute="bottom" constant="16" id="kWP-rn-XBk"/>
+                            <constraint firstItem="qMr-9R-gKV" firstAttribute="top" secondItem="I9U-gS-AHh" secondAttribute="bottom" constant="16" id="n2e-Ce-Zll"/>
+                            <constraint firstItem="I9U-gS-AHh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oRL-AT-rN1"/>
                             <constraint firstItem="I9U-gS-AHh" firstAttribute="top" secondItem="zUs-WO-UMW" secondAttribute="bottom" constant="8" id="q4W-DB-ibM"/>
+                            <constraint firstItem="I9U-gS-AHh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qgl-ij-e3u"/>
                             <constraint firstItem="qMr-9R-gKV" firstAttribute="leading" secondItem="CNe-kU-BBM" secondAttribute="leading" constant="4" id="rfH-Nj-MJO"/>
                             <constraint firstItem="I9U-gS-AHh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s83-O6-YKw"/>
                         </constraints>

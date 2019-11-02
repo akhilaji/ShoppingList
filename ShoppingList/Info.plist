@@ -55,6 +55,10 @@
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app will use location infomation to send relevant notifications</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The app will use location while being used to load map information</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
