@@ -26,7 +26,7 @@ class PersistanceManager {
             else{
                 for document in querySnapshot!.documents {
                     counter += 1
-                    //print("\(document.documentID) => \(document.data())");
+                    print("\(document.documentID) => \(document.data())");
                 }
                // print("Count = \(counter)");
             }
@@ -44,10 +44,13 @@ class PersistanceManager {
                     self.userLists.append(document.documentID)
                 }
             }
-            //print(self.userLists)
-            //self.listsTable.reloadData()
+
         }
         
+    }
+    
+    func deleteData(){
+        db.collection("UserLists")
     }
 }
 

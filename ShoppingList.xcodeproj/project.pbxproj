@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		156D20249AF3077B72C2D1ED /* Pods_ShoppingList_ShoppingListUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71F07253CF9D448B8F6543FE /* Pods_ShoppingList_ShoppingListUITests.framework */; };
-		2C49A09AD7C576590ADD2A2B /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE698341332C63E14CB276E /* Pods_ShoppingList.framework */; };
 		49F74C56FEF66478EE830056 /* Pods_ShoppingListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DB7A1813A512C615F4286ED /* Pods_ShoppingListTests.framework */; };
 		EB1EAB51236CAABE007200D5 /* UserListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1EAB50236CAABE007200D5 /* UserListsTableViewCell.swift */; };
 		EB42C051236B9B67000FFC01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C050236B9B67000FFC01 /* AppDelegate.swift */; };
@@ -20,7 +19,9 @@
 		EB42C068236B9B6A000FFC01 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C067236B9B6A000FFC01 /* ShoppingListTests.swift */; };
 		EB42C073236B9B6A000FFC01 /* ShoppingListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C072236B9B6A000FFC01 /* ShoppingListUITests.swift */; };
 		EB42C081236BA047000FFC01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB42C080236BA047000FFC01 /* GoogleService-Info.plist */; };
+		EB5E385C236EBC4D005F7314 /* ListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E385B236EBC4D005F7314 /* ListItemTableViewCell.swift */; };
 		EBA10000236CE92C00F729C7 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */; };
+		EBA10001236E4DC700F729C7 /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE698341332C63E14CB276E /* Pods_ShoppingList.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		EB42C072236B9B6A000FFC01 /* ShoppingListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListUITests.swift; sourceTree = "<group>"; };
 		EB42C074236B9B6A000FFC01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB42C080236BA047000FFC01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EB5E385B236EBC4D005F7314 /* ListItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTableViewCell.swift; sourceTree = "<group>"; };
 		EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C49A09AD7C576590ADD2A2B /* Pods_ShoppingList.framework in Frameworks */,
+				EBA10001236E4DC700F729C7 /* Pods_ShoppingList.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +156,7 @@
 				EB42C05E236B9B6A000FFC01 /* Info.plist */,
 				EB42C080236BA047000FFC01 /* GoogleService-Info.plist */,
 				EB1EAB50236CAABE007200D5 /* UserListsTableViewCell.swift */,
+				EB5E385B236EBC4D005F7314 /* ListItemTableViewCell.swift */,
 				EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */,
 			);
 			path = ShoppingList;
@@ -419,6 +422,7 @@
 			files = (
 				EB1EAB51236CAABE007200D5 /* UserListsTableViewCell.swift in Sources */,
 				EB42C055236B9B67000FFC01 /* ViewController.swift in Sources */,
+				EB5E385C236EBC4D005F7314 /* ListItemTableViewCell.swift in Sources */,
 				EB42C051236B9B67000FFC01 /* AppDelegate.swift in Sources */,
 				EBA10000236CE92C00F729C7 /* PersistanceManager.swift in Sources */,
 				EB42C053236B9B67000FFC01 /* SceneDelegate.swift in Sources */,

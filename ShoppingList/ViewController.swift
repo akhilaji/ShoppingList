@@ -9,36 +9,50 @@
 import UIKit
 import FirebaseDatabase
 import Firebase
+import CoreLocation
+import MapKit
 
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate
 {
     
     let db = Firestore.firestore()
     let persistanceManager = PersistanceManager()
-    //var userLists = [String]()
-    var listNames = [String]()
+    
     var userLists:[String]?
+    var locationManager: CLLocationManager!
     
     @IBOutlet weak var listsTable: UITableView!
+    @IBOutlet weak var map: MKMapView!
     
     var counter = 0
-    //var userLists = ["list1", "list2","list3"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        //create tap gesture to minimize keyboard after editing
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+
         persistanceManager.loadData()
         counter = persistanceManager.getCount()
-        //print(counter)
-        //print("ViewDidLoad")
-        //print(persistanceManager.userLists)
         userLists = self.persistanceManager.userLists
+       
+        if (CLLocationManager.locationServicesEnabled())
+        {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
 
     }
     
+    //MARK - TABLE VIEW FUNCTIONS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print(persistanceManager.userLists.count)
         print(persistanceManager.userLists.count)
         return persistanceManager.userLists.count
     }
@@ -46,13 +60,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //Add
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userListCell", for: indexPath) as! UserListsTableViewCell
-        //persistanceManager.loadData()
         let listItem = persistanceManager.userLists[indexPath.row]
-        print(listNames)
         cell.listName.text = listItem
-        //tableView.reloadData()
         print("Add Function")
-        
         print(persistanceManager.userLists)
         return cell
     }
@@ -95,6 +105,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func reloadTable(_ sender: Any) {
         counter = persistanceManager.getCount()
         self.listsTable.reloadData()
+    }
+    
+    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //    <#code#>
+    //}
+    
+    //MARK - MAP VIEW FUNCTIONS
+    func LocationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        if let location = locations.last{
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude
+                , longitude: location.coordinate.longitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            //self.map.setRegion(region, animated: true)
+            self.map.setRegion(map.regionThatFits(region), animated: true)
+        }
     }
     
     
