@@ -51,10 +51,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        counter = persistanceManager.getCount()
+        persistanceManager.loadData()
+        self.listsTable.reloadData()
+    }
+    
+    
     //MARK - TABLE VIEW FUNCTIONS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(persistanceManager.userLists.count)
         return persistanceManager.userLists.count
+                
     }
 
     //Add
