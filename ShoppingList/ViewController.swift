@@ -20,12 +20,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let persistanceManager = PersistanceManager()
     
     var userLists:[String]?
+    var listNames = [String]()
     var locationManager: CLLocationManager!
     
     @IBOutlet weak var listsTable: UITableView!
     @IBOutlet weak var map: MKMapView!
     
     var counter = 0
+    let regionInMeters: Double = 10000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +50,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             locationManager.requestAlwaysAuthorization()
             locationManager.startUpdatingLocation()
         }
+        
+        if let location = locationManager.location?.coordinate{
+                   let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+                   self.map.setRegion(region, animated: true)
+        }
+        
+        loadData()
 
     }
     
@@ -61,14 +70,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK - TABLE VIEW FUNCTIONS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(persistanceManager.userLists.count)
-        return persistanceManager.userLists.count
+        //return persistanceManager.userLists.count
+        return listNames.count
                 
     }
 
     //Add
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userListCell", for: indexPath) as! UserListsTableViewCell
-        let listItem = persistanceManager.userLists[indexPath.row]
+        //let listItem = persistanceManager.userLists[indexPath.row]
+        
+        let listItem = listNames[indexPath.row]
         cell.listName.text = listItem
         print("Add Function")
         print(persistanceManager.userLists)
@@ -109,25 +121,105 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }))
         self.present(alert, animated: true)
     }
+        
+    func deleteData(){
+        db.collection("UserLists")
+    }
+    
     
     @IBAction func reloadTable(_ sender: Any) {
         counter = persistanceManager.getCount()
         self.listsTable.reloadData()
     }
     
+    func reloadTableView(){
+        self.listsTable.reloadData()
+    }
     //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     //    <#code#>
     //}
     
-    //MARK - MAP VIEW FUNCTIONS
-    func LocationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-        if let location = locations.last{
-            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude
-                , longitude: location.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            //self.map.setRegion(region, animated: true)
-            self.map.setRegion(map.regionThatFits(region), animated: true)
+    //MARK - Persistance manager methods
+    func getCount() -> Int{
+            var counter = 0
+            db.collection("UserLists").getDocuments(){
+                (querySnapshot, err) in
+                
+                if let err = err{
+                    print("Error getting documents: \(err)");
+                }
+                else{
+                    for document in querySnapshot!.documents {
+                        counter += 1
+                        print("\(document.documentID) => \(document.data())");
+                    }
+                   // print("Count = \(counter)");
+                }
+            }
+            return counter
         }
+        
+        func loadData() {
+            db.collection("UserLists").getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    if let querySnapshot = querySnapshot{
+                        for document in querySnapshot.documents {
+                            
+                            self.listNames.append(document.documentID)
+                        }
+                        
+                    }
+                    
+                }
+                DispatchQueue.main.async {
+                    self.listsTable.reloadData()
+                }
+            }
+            
+            
+        }
+        
+        
+        
+
+    
+    
+    
+    
+    
+    //MARK - MAP VIEW FUNCTIONS
+//    func setupLocationManager(){
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+//    }
+//    func checkLocationServices(){
+//        if CLLocationManager.locationServicesEnabled(){
+//            //setup location manager
+//            setupLocationManager()
+//        }else{
+//            //alert user location disabled
+//        }
+//    }
+    
+    func LocationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        guard let location = locations.last else{return}
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude
+                , longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        //let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            //self.map.setRegion(region, animated: true)
+        self.map.setRegion(map.regionThatFits(region), animated: true)
+        
+//        if let location = locationManager.location?.coordinate{
+//            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+//            self.map.setRegion(region, animated: true)
+//        }
+    }
+    
+    func LocationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus){
+        
     }
     
     

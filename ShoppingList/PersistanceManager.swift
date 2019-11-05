@@ -13,6 +13,7 @@ class PersistanceManager {
     
     let db = Firestore.firestore()
     var userLists = [String]()
+    //let viewController = ViewController()
     
     
     func getCount() -> Int{
@@ -39,15 +40,25 @@ class PersistanceManager {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                for document in querySnapshot!.documents {
+                if let querySnapshot = querySnapshot{
+                    for document in querySnapshot.documents {
+                        
+                        self.userLists.append(document.documentID)
+                    }
                     
-                    self.userLists.append(document.documentID)
                 }
+                
             }
-
+//            DispatchQueue.main.async {
+//
+//            }
         }
         
+        
     }
+    
+    
+    
     
     func deleteData(){
         db.collection("UserLists")

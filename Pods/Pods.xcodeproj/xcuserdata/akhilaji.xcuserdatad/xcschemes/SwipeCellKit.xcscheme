@@ -14,9 +14,9 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4402AFF83DBDC4DD07E198685FDC2DF2"
-               BuildableName = "FirebaseCore.framework"
-               BlueprintName = "FirebaseCore"
+               BlueprintIdentifier = "1DE44C23B82E6671E9E1541D06DE0E87"
+               BuildableName = "SwipeCellKit.framework"
+               BlueprintName = "SwipeCellKit"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

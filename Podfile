@@ -10,6 +10,7 @@ target 'ShoppingList' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'SwipeCellKit'
 
   target 'ShoppingListTests' do
     inherit! :search_paths

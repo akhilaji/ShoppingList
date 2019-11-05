@@ -122,12 +122,14 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - Protobuf (3.10.0)
+  - SwipeCellKit (2.7.1)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Firestore
+  - SwipeCellKit
 
 SPEC REPOS:
   trunk:
@@ -152,6 +154,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - Protobuf
+    - SwipeCellKit
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -175,7 +178,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
+  SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 5f27d540f1fb1e5bbc66facd646d2a4e8e62c7c2
+PODFILE CHECKSUM: d8b0679c30d14e32fd913903748dfb1d23c38db4
 
 COCOAPODS: 1.8.4
