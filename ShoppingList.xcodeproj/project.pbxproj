@@ -20,6 +20,8 @@
 		EB42C073236B9B6A000FFC01 /* ShoppingListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB42C072236B9B6A000FFC01 /* ShoppingListUITests.swift */; };
 		EB42C081236BA047000FFC01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB42C080236BA047000FFC01 /* GoogleService-Info.plist */; };
 		EB5E385C236EBC4D005F7314 /* ListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E385B236EBC4D005F7314 /* ListItemTableViewCell.swift */; };
+		EB5E385E23723BCE005F7314 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E385D23723BCE005F7314 /* ItemsViewController.swift */; };
+		EB5E38622372498F005F7314 /* AddListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E38612372498F005F7314 /* AddListItemViewController.swift */; };
 		EBA10000236CE92C00F729C7 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */; };
 		EBA10001236E4DC700F729C7 /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE698341332C63E14CB276E /* Pods_ShoppingList.framework */; };
 /* End PBXBuildFile section */
@@ -68,6 +70,8 @@
 		EB42C074236B9B6A000FFC01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB42C080236BA047000FFC01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB5E385B236EBC4D005F7314 /* ListItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTableViewCell.swift; sourceTree = "<group>"; };
+		EB5E385D23723BCE005F7314 /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		EB5E38612372498F005F7314 /* AddListItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListItemViewController.swift; sourceTree = "<group>"; };
 		EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +154,8 @@
 				EB42C050236B9B67000FFC01 /* AppDelegate.swift */,
 				EB42C052236B9B67000FFC01 /* SceneDelegate.swift */,
 				EB42C054236B9B67000FFC01 /* ViewController.swift */,
+				EB5E385D23723BCE005F7314 /* ItemsViewController.swift */,
+				EB5E38612372498F005F7314 /* AddListItemViewController.swift */,
 				EB42C056236B9B67000FFC01 /* Main.storyboard */,
 				EB42C059236B9B6A000FFC01 /* Assets.xcassets */,
 				EB42C05B236B9B6A000FFC01 /* LaunchScreen.storyboard */,
@@ -424,6 +430,8 @@
 				EB42C055236B9B67000FFC01 /* ViewController.swift in Sources */,
 				EB5E385C236EBC4D005F7314 /* ListItemTableViewCell.swift in Sources */,
 				EB42C051236B9B67000FFC01 /* AppDelegate.swift in Sources */,
+				EB5E385E23723BCE005F7314 /* ItemsViewController.swift in Sources */,
+				EB5E38622372498F005F7314 /* AddListItemViewController.swift in Sources */,
 				EBA10000236CE92C00F729C7 /* PersistanceManager.swift in Sources */,
 				EB42C053236B9B67000FFC01 /* SceneDelegate.swift in Sources */,
 			);

@@ -99,7 +99,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
+        
+        let itemName = listNames[indexPath.row]
         persistanceManager.userLists.remove(at: indexPath.row)
+        db.collection("UserLists").whereField("name", isEqualTo: itemName).getDocuments { (querySnapshot, error) in
+            if error != nil {
+                print(error)
+            } else {
+                for document in querySnapshot!.documents {
+                    document.reference.delete()
+                }
+            }
+        }
+        loadData()
         self.listsTable.reloadData()
     }
     
@@ -117,16 +129,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.persistanceManager.userLists.append(listName!)
             self.db.collection("UserLists").document(listName!).setData(["name": listName!])
             print("Added" + (listName ?? "listNameEmptyError"))
+            self.loadData()
             self.listsTable.reloadData()
         }))
         self.present(alert, animated: true)
     }
         
-    func deleteData(){
-        db.collection("UserLists")
-    }
-    
-    
     @IBAction func reloadTable(_ sender: Any) {
         counter = persistanceManager.getCount()
         self.listsTable.reloadData()
@@ -135,9 +143,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func reloadTableView(){
         self.listsTable.reloadData()
     }
-    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //    <#code#>
-    //}
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let index: IndexPath = self.listsTable.indexPath(for: sender as! UITableViewCell)!
+        
+        if(segue.destination is ItemsViewController){
+            let destination = segue.destination as! ItemsViewController
+            destination.db = db
+            destination.listName = listNames[index.row]
+        }
+    }
     
     //MARK - Persistance manager methods
     func getCount() -> Int{
@@ -160,6 +176,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         func loadData() {
+            listNames = [String]()
             db.collection("UserLists").getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -181,13 +198,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
         }
         
-        
-        
 
-    
-    
-    
-    
     
     //MARK - MAP VIEW FUNCTIONS
 //    func setupLocationManager(){
