@@ -38,9 +38,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
 
-        persistanceManager.loadData()
-        counter = persistanceManager.getCount()
-        userLists = self.persistanceManager.userLists
+        //persistanceManager.loadData()
+        //counter = persistanceManager.getCount()
+        //userLists = self.persistanceManager.userLists
        
         if (CLLocationManager.locationServicesEnabled())
         {
@@ -61,15 +61,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        counter = persistanceManager.getCount()
-        persistanceManager.loadData()
-        self.listsTable.reloadData()
+        //counter = persistanceManager.getCount()
+        //persistanceManager.loadData()
+        //self.listsTable.reloadData()
     }
     
     
     //MARK - TABLE VIEW FUNCTIONS
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(persistanceManager.userLists.count)
+        //print(persistanceManager.userLists.count)
         //return persistanceManager.userLists.count
         return listNames.count
                 
@@ -82,8 +82,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let listItem = listNames[indexPath.row]
         cell.listName.text = listItem
-        print("Add Function")
-        print(persistanceManager.userLists)
+        //print("Add Function")
+        //print(persistanceManager.userLists)
         return cell
     }
     
@@ -128,7 +128,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let listName = alert.textFields?.first?.text
             self.persistanceManager.userLists.append(listName!)
             self.db.collection("UserLists").document(listName!).setData(["name": listName!])
-            print("Added" + (listName ?? "listNameEmptyError"))
+            //print("Added" + (listName ?? "listNameEmptyError"))
             self.loadData()
             self.listsTable.reloadData()
         }))
@@ -157,47 +157,47 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK - Persistance manager methods
     func getCount() -> Int{
-            var counter = 0
-            db.collection("UserLists").getDocuments(){
-                (querySnapshot, err) in
-                
-                if let err = err{
-                    print("Error getting documents: \(err)");
-                }
-                else{
-                    for document in querySnapshot!.documents {
-                        counter += 1
-                        print("\(document.documentID) => \(document.data())");
-                    }
-                   // print("Count = \(counter)");
-                }
+        var counter = 0
+        db.collection("UserLists").getDocuments(){
+            (querySnapshot, err) in
+            
+            if let err = err{
+                print("Error getting documents: \(err)");
             }
-            return counter
+            else{
+                for document in querySnapshot!.documents {
+                    counter += 1
+                    //print("\(document.documentID) => \(document.data())");
+                }
+                // print("Count = \(counter)");
+            }
         }
-        
-        func loadData() {
-            listNames = [String]()
-            db.collection("UserLists").getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    if let querySnapshot = querySnapshot{
-                        for document in querySnapshot.documents {
-                            
-                            self.listNames.append(document.documentID)
-                        }
+        return counter
+    }
+    
+    func loadData() {
+        listNames = [String]()
+        db.collection("UserLists").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                if let querySnapshot = querySnapshot{
+                    for document in querySnapshot.documents {
                         
+                        self.listNames.append(document.documentID)
                     }
                     
                 }
-                DispatchQueue.main.async {
-                    self.listsTable.reloadData()
-                }
+                
             }
-            
-            
+            DispatchQueue.main.async {
+                self.listsTable.reloadData()
+            }
         }
         
+        
+    }
+    
 
     
     //MARK - MAP VIEW FUNCTIONS

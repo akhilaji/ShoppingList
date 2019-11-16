@@ -65,7 +65,7 @@ class AddListItemViewController: UIViewController{
         var error = ""
 
         // Add a new collection in document "list"
-        var itemReference = db.collection("UserLists").document(listName).collection(name)
+        var itemReference = db.collection("UserLists").document(listName).collection(listName)
         
         itemReference.document(name).setData([ "Location": location,
                                                "Status": status,

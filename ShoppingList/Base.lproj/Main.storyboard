@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="135" width="375" height="222"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userListCell" id="hQ2-T7-ZvB" customClass="UserListsTableViewCell" customModule="ShoppingList" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="userListCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="userListCell" id="hQ2-T7-ZvB" customClass="UserListsTableViewCell" customModule="ShoppingList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="45.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hQ2-T7-ZvB" id="xhE-AM-Tpk">
@@ -121,10 +121,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="98H-Zz-cle">
-                                <rect key="frame" x="0.0" y="132" width="375" height="608"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="652"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" editingAccessoryType="checkmark" id="zvV-RX-xTl" customClass="ListItemTableViewCell" customModule="ShoppingList" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="listItemCell" editingAccessoryType="checkmark" id="zvV-RX-xTl" customClass="ListItemTableViewCell" customModule="ShoppingList" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zvV-RX-xTl" id="gNm-0V-txT">
@@ -145,11 +145,11 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8aE-Nz-V7j" id="2nr-9Z-MNd"/>
+                                    <outlet property="delegate" destination="8aE-Nz-V7j" id="mcL-Fc-mcZ"/>
+                                </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="jvn-Wv-Snu">
-                                <rect key="frame" x="0.0" y="88" width="375" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unS-rd-g7i">
                                 <rect key="frame" x="0.0" y="740" width="375" height="44"/>
                                 <items>
@@ -163,16 +163,12 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="jvn-Wv-Snu" firstAttribute="trailing" secondItem="kfe-5x-PNj" secondAttribute="trailing" id="1oa-DD-q7X"/>
-                            <constraint firstItem="jvn-Wv-Snu" firstAttribute="leading" secondItem="kfe-5x-PNj" secondAttribute="leading" id="2cR-rG-fo2"/>
                             <constraint firstItem="98H-Zz-cle" firstAttribute="leading" secondItem="kfe-5x-PNj" secondAttribute="leading" id="8ZV-ov-Mbg"/>
                             <constraint firstItem="unS-rd-g7i" firstAttribute="trailing" secondItem="kfe-5x-PNj" secondAttribute="trailing" id="E2u-h7-zfj"/>
                             <constraint firstItem="kfe-5x-PNj" firstAttribute="bottom" secondItem="98H-Zz-cle" secondAttribute="bottom" constant="38" id="HrR-A7-Ldh"/>
                             <constraint firstAttribute="bottom" secondItem="unS-rd-g7i" secondAttribute="bottom" constant="28" id="Ufa-AI-qnZ"/>
                             <constraint firstItem="unS-rd-g7i" firstAttribute="top" secondItem="98H-Zz-cle" secondAttribute="bottom" id="VU1-ZF-qE7"/>
-                            <constraint firstItem="jvn-Wv-Snu" firstAttribute="top" secondItem="kfe-5x-PNj" secondAttribute="top" id="cMH-aW-hV1"/>
-                            <constraint firstItem="98H-Zz-cle" firstAttribute="top" secondItem="jvn-Wv-Snu" secondAttribute="bottom" id="clN-QO-dmV"/>
-                            <constraint firstItem="98H-Zz-cle" firstAttribute="top" secondItem="kfe-5x-PNj" secondAttribute="top" constant="44" id="g3W-Sa-8b4"/>
+                            <constraint firstItem="98H-Zz-cle" firstAttribute="top" secondItem="kfe-5x-PNj" secondAttribute="top" id="g3W-Sa-8b4"/>
                             <constraint firstItem="unS-rd-g7i" firstAttribute="leading" secondItem="kfe-5x-PNj" secondAttribute="leading" id="kqy-Gz-1Pn"/>
                             <constraint firstItem="98H-Zz-cle" firstAttribute="trailing" secondItem="kfe-5x-PNj" secondAttribute="trailing" id="lQq-rO-lbA"/>
                         </constraints>
