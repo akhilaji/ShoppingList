@@ -18,7 +18,7 @@ class PictureViewCell: UITableViewCell{
         picture.clipsToBounds = true
         
         picture.layer.shadowColor = UIColor.black.cgColor
-        picture.layer.shadowOffset = CGSize(width:0.5, height:4.0);
+        picture.layer.shadowOffset = CGSize(width:1.5, height:5.0);
         picture.layer.shadowOpacity = 0.5
         picture.layer.shadowRadius = 5.0 //Here your control your blur
     
