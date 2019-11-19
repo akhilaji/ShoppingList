@@ -18,6 +18,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     let db = Firestore.firestore()
     let persistanceManager = PersistanceManager()
+    let placemarksManager = PlacemarksManager()
     
     var userLists:[String]?
     var listNames = [String]()
@@ -37,11 +38,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-
+        
+        placemarksManager.loadData()
+        //placemarksManager.performSearch()
+        
         //persistanceManager.loadData()
         //counter = persistanceManager.getCount()
         //userLists = self.persistanceManager.userLists
-       
+        
+        
+        
+        
         if (CLLocationManager.locationServicesEnabled())
         {
             locationManager = CLLocationManager()
@@ -52,12 +59,57 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         if let location = locationManager.location?.coordinate{
-                   let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-                   self.map.setRegion(region, animated: true)
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            self.map.setRegion(region, animated: true)
         }
         
+        if placemarksManager.userLocations.count != 0{
+            for i in 1...placemarksManager.userLocations.count-1{
+                let request = MKLocalSearch.Request()
+                request.naturalLanguageQuery = placemarksManager.userLocations[i]
+                
+                let search = MKLocalSearch(request: request)
+                //let annotations = mapView.annotations
+                
+                
+                search.start { response, _ in
+                    guard let response = response else {
+                        return
+                    }
+                    print( response.mapItems )
+                    var matchingItems:[MKMapItem] = []
+                    matchingItems = response.mapItems
+                    for i in 1...matchingItems.count - 1
+                    {
+                        let place = matchingItems[i].placemark
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = place.location!.coordinate
+                        annotation.title = place.name
+                        
+                        self.map.addAnnotation(annotation)
+                        
+                        //print("Count")
+                        //print(self.annotationsList.count)
+                        //print(self.places.count)
+                    }
+                    self.map.showAnnotations(self.map.annotations, animated: true)                }
+            }
+        }
+//        if placemarksManager.annotationsList.count != 0{
+//            for i in 1...placemarksManager.annotationsList.count - 1{
+//                self.map.addAnnotation(placemarksManager.annotationsList[i])
+////                self.map.showAnnotations(self.map.annotations, animated: true)
+//
+//            }
+//
+//        }
+        
+        
+        
+        
+        
         loadData()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,9 +124,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //print(persistanceManager.userLists.count)
         //return persistanceManager.userLists.count
         return listNames.count
-                
+        
     }
-
+    
     //Add
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "userListCell", for: indexPath) as! UserListsTableViewCell
@@ -134,7 +186,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }))
         self.present(alert, animated: true)
     }
-        
+    
     @IBAction func reloadTable(_ sender: Any) {
         counter = persistanceManager.getCount()
         self.listsTable.reloadData()
@@ -143,7 +195,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func reloadTableView(){
         self.listsTable.reloadData()
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let index: IndexPath = self.listsTable.indexPath(for: sender as! UITableViewCell)!
@@ -154,6 +205,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             destination.listName = listNames[index.row]
         }
     }
+    
     
     //MARK - Persistance manager methods
     func getCount() -> Int{
@@ -195,33 +247,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
 
-    
     //MARK - MAP VIEW FUNCTIONS
-//    func setupLocationManager(){
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-//    }
-//    func checkLocationServices(){
-//        if CLLocationManager.locationServicesEnabled(){
-//            //setup location manager
-//            setupLocationManager()
-//        }else{
-//            //alert user location disabled
-//        }
-//    }
+    //    func setupLocationManager(){
+    //        locationManager.delegate = self
+    //        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+    //    }
+    //    func checkLocationServices(){
+    //        if CLLocationManager.locationServicesEnabled(){
+    //            //setup location manager
+    //            setupLocationManager()
+    //        }else{
+    //            //alert user location disabled
+    //        }
+    //    }
     
     func LocationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-        guard let location = locations.last else{return}
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude
-                , longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        //let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            //self.map.setRegion(region, animated: true)
-        self.map.setRegion(map.regionThatFits(region), animated: true)
-        
-//        if let location = locationManager.location?.coordinate{
-//            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-//            self.map.setRegion(region, animated: true)
+//        guard let location = locations.last else{return}
+//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude
+//            , longitude: location.coordinate.longitude)
+//        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+//        //let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        //self.map.setRegion(region, animated: true)
+//        self.map.setRegion(map.regionThatFits(region), animated: true)
+//
+//        //        if let location = locationManager.location?.coordinate{
+//        //            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+//        //            self.map.setRegion(region, animated: true)
+//        //        }
+//
+//        for i in 1...placemarksManager.annotationsList.count - 1{
+//            self.map.addAnnotation(placemarksManager.annotationsList[i])
+//            self.map.showAnnotations(self.map.annotations, animated: true)
 //        }
     }
     

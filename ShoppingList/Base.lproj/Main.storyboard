@@ -63,7 +63,7 @@
                                     <constraint firstAttribute="height" constant="386" id="1PJ-i6-PnA"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Qgt-8g-97P"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="7a5-IO-471"/>
                                 </connections>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Items Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNe-kU-BBM">
