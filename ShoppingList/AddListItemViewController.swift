@@ -40,7 +40,7 @@ class AddListItemViewController: UIViewController{
         addButton.clipsToBounds = true
         name = itemName.text ?? ""
         location = itemLocation.text ?? ""
-    
+        
         status1.isHidden = false
         status2.isHidden = true
         
@@ -63,7 +63,7 @@ class AddListItemViewController: UIViewController{
         print(listName)
         print(name)
         var error = ""
-
+        
         // Add a new collection in document "list"
         var itemReference = db.collection("UserLists").document(listName).collection(listName)
         
@@ -94,6 +94,6 @@ class AddListItemViewController: UIViewController{
         itemName.text = ""
         itemLocation.text = ""
         status = false
-    
+        
     }
 }

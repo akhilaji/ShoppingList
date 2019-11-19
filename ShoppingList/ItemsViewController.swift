@@ -26,7 +26,7 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
         //Update NavBar Title
         self.title = listName
         
-     loadData()
+        loadData()
         
     }
     
@@ -56,7 +56,7 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
     func getCount() -> Int{
         var counter = 0
         
-         db.collection("UserLists").document(listName).collection(listName).getDocuments(){
+        db.collection("UserLists").document(listName).collection(listName).getDocuments(){
             (querySnapshot, err) in
             
             if let err = err{
@@ -95,19 +95,19 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.itemsTable.reloadData()
             }
         }
-    
+        
         
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           //let index: IndexPath = self.listsTable.indexPath(for: sender as! UITableViewCell)!
-           
-           if(segue.destination is AddListItemViewController){
-               let destination = segue.destination as! AddListItemViewController
-               destination.db = db
-               destination.listName = listName
-           }
-       }
+        //let index: IndexPath = self.listsTable.indexPath(for: sender as! UITableViewCell)!
+        
+        if(segue.destination is AddListItemViewController){
+            let destination = segue.destination as! AddListItemViewController
+            destination.db = db
+            destination.listName = listName
+        }
+    }
     
 }

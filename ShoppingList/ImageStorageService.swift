@@ -28,7 +28,7 @@ struct ImageStorageService{
                     assertionFailure(err.localizedDescription)
                     return completion(nil)
                 }
-              completion(url)
+                completion(url)
             })
         })
     }

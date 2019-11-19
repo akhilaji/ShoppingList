@@ -40,14 +40,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addGestureRecognizer(tap)
         
         placemarksManager.loadData()
-        //placemarksManager.performSearch()
-        
-        //persistanceManager.loadData()
-        //counter = persistanceManager.getCount()
-        //userLists = self.persistanceManager.userLists
-        
-        
-        
         
         if (CLLocationManager.locationServicesEnabled())
         {
@@ -69,8 +61,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 request.naturalLanguageQuery = placemarksManager.userLocations[i]
                 
                 let search = MKLocalSearch(request: request)
-                //let annotations = mapView.annotations
-                
                 
                 search.start { response, _ in
                     guard let response = response else {
@@ -87,35 +77,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         annotation.title = place.name
                         
                         self.map.addAnnotation(annotation)
-                        
-                        //print("Count")
-                        //print(self.annotationsList.count)
-                        //print(self.places.count)
                     }
                     self.map.showAnnotations(self.map.annotations, animated: true)                }
             }
         }
-//        if placemarksManager.annotationsList.count != 0{
-//            for i in 1...placemarksManager.annotationsList.count - 1{
-//                self.map.addAnnotation(placemarksManager.annotationsList[i])
-////                self.map.showAnnotations(self.map.annotations, animated: true)
-//
-//            }
-//
-//        }
-        
-        
-        
-        
-        
         loadData()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //counter = persistanceManager.getCount()
-        //persistanceManager.loadData()
-        //self.listsTable.reloadData()
     }
     
     
@@ -245,46 +211,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
-    
-
-    //MARK - MAP VIEW FUNCTIONS
-    //    func setupLocationManager(){
-    //        locationManager.delegate = self
-    //        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-    //    }
-    //    func checkLocationServices(){
-    //        if CLLocationManager.locationServicesEnabled(){
-    //            //setup location manager
-    //            setupLocationManager()
-    //        }else{
-    //            //alert user location disabled
-    //        }
-    //    }
-    
-    func LocationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
-//        guard let location = locations.last else{return}
-//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude
-//            , longitude: location.coordinate.longitude)
-//        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-//        //let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-//        //self.map.setRegion(region, animated: true)
-//        self.map.setRegion(map.regionThatFits(region), animated: true)
-//
-//        //        if let location = locationManager.location?.coordinate{
-//        //            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-//        //            self.map.setRegion(region, animated: true)
-//        //        }
-//
-//        for i in 1...placemarksManager.annotationsList.count - 1{
-//            self.map.addAnnotation(placemarksManager.annotationsList[i])
-//            self.map.showAnnotations(self.map.annotations, animated: true)
-//        }
-    }
-    
-    func LocationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus){
-        
-    }
-    
-    
 }
 

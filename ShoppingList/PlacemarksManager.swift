@@ -33,9 +33,6 @@ class PlacemarksManager{
                     }
                 }
             }
-//            DispatchQueue.main.async {
-//                self.listsTable.reloadData()
-//            }
         }
     }
     
@@ -57,18 +54,18 @@ class PlacemarksManager{
                 
                 
                 
-//                db.collection("UserLists").document(listNames[i]).collection(listNames[i]).getDocuments() { (querySnapshot, err) in
-//                    if let err = err {
-//                        print("Error getting documents: \(err)")
-//                    } else {
-//                        if let querySnapshot = querySnapshot{
-//                            for document in querySnapshot.documents {
-//                                self.listNames?.append(document.documentID)
-//                            }
-//                        }
-//                    }
-//
-//                }
+                //                db.collection("UserLists").document(listNames[i]).collection(listNames[i]).getDocuments() { (querySnapshot, err) in
+                //                    if let err = err {
+                //                        print("Error getting documents: \(err)")
+                //                    } else {
+                //                        if let querySnapshot = querySnapshot{
+                //                            for document in querySnapshot.documents {
+                //                                self.listNames?.append(document.documentID)
+                //                            }
+                //                        }
+                //                    }
+                //
+                //                }
             }
             
         }
@@ -114,10 +111,7 @@ class PlacemarksManager{
                         
                         self.places.append(place)
                         self.annotationsList.append(annotation)
-                        
-                        //print("Count")
-                        //print(self.annotationsList.count)
-                        //print(self.places.count)
+
                     }
                     
                 }

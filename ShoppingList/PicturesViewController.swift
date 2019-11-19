@@ -90,14 +90,14 @@ class PicturesViewController: UIViewController, UITableViewDataSource, UITableVi
             
             guard let output = output else {return}
             do{
-               self.db.collection("UserImages").document(try String(contentsOf: output)).setData(["URL": try String(contentsOf: output)])
+                self.db.collection("UserImages").document(try String(contentsOf: output)).setData(["URL": try String(contentsOf: output)])
             }catch{
                 print("Exception Caught")
             }
             
             self.id += 1
         }
-     
+        
         self.pictureTable.reloadData()
         
         dismiss(animated: true, completion: nil)
