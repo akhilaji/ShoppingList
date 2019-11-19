@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class PicturesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-   
+    
     let db = Firestore.firestore()
     var imagesArray = [UIImage]()
     let picker = UIImagePickerController()
+    var id = 0
     
     var savedImage:UIImage?
     @IBOutlet weak var pictureTable: UITableView!
@@ -27,8 +29,8 @@ class PicturesViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(imagesArray.count)
         return imagesArray.count
-       }
-       
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pictureViewCell", for: indexPath) as! PictureViewCell
         let item = imagesArray[indexPath.row]
@@ -72,47 +74,40 @@ class PicturesViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
+        
         guard let selectedImage = info[.originalImage] as? UIImage else {
             print("Error: \(info)")
             return
         }
         savedImage = selectedImage
         imagesArray.append(savedImage!)
+        let data = savedImage?.jpegData(compressionQuality: 1.0)
+        let imageName = UUID().uuidString
+        let imageReference = Storage.storage().reference().child(imageName)
+        var URL = ""
+        
+        PicturesViewController.uploadImage(savedImage!, at: imageReference) { (output) in
+            
+            guard let output = output else {return}
+            do{
+               self.db.collection("UserImages").document(try String(contentsOf: output)).setData(["URL": try String(contentsOf: output)])
+            }catch{
+                print("Exception Caught")
+            }
+            
+            self.id += 1
+        }
+     
         self.pictureTable.reloadData()
-
-        dismiss(animated: true, completion: nil)
-     }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-
+        
         dismiss(animated: true, completion: nil)
     }
-
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        dismiss(animated: true, completion: nil)
+    }
     
     
-    
-    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let yourPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            imagesArray.append(yourPickedImage)
-//            self.pictureTable.reloadData()
-//        }
-//        dismiss(animated: true, completion: nil)
-//    }
-//
-//    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {self.dismiss(animated: true, completion: nil)
-//    }
-
-    
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-//        savedImage = image
-//        dismiss(animated: true, completion: nil)
-//        //var data = NSData()
-//        imagesArray.append(savedImage!)
-//        self.pictureTable.reloadData()
-//
-//    }
-//
     fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
         return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
     }
@@ -120,6 +115,52 @@ class PicturesViewController: UIViewController, UITableViewDataSource, UITableVi
     fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
         return input.rawValue
     }
-
+    
+    //    func uploadMedia(completion: @escaping (_ url: String?) -> Void) {
+    //        let storageRef = Storage.storage().reference().child("\(Auth.auth().currentUser?.uid ?? "").png")
+    //        if let uploadData = savedImage?.jpegData(compressionQuality: 1.0) {
+    //            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+    //                if error != nil {
+    //                    print("error")
+    //                    completion(nil)
+    //                } else {
+    //
+    //                    storageRef.downloadURL(completion: { (url, error) in
+    //
+    //                        print(url?.absoluteString)
+    //                        completion(url?.absoluteString)
+    //                    })
+    //                    //completion((metadata?.downloadURL().absoluteString)!))
+    //                    //your uploaded photo url.
+    //
+    //
+    //
+    //                }
+    //            }
+    //        }
+    //    }
+    
+    static func uploadImage(_ image: UIImage, at reference: StorageReference, completion: @escaping (URL?) -> Void){
+        guard let imageData = image.jpegData(compressionQuality: 1.0) else{
+            return completion(nil)
+        }
+        
+        reference.putData(imageData, metadata: nil, completion: { (metadata, err) in
+            
+            if let err = err{
+                assertionFailure(err.localizedDescription)
+                return completion(nil)
+            }
+            
+            reference.downloadURL(completion: { (url, err) in
+                if let err = err{
+                    assertionFailure(err.localizedDescription)
+                    return completion(nil)
+                }
+                
+                completion(url)
+            })
+        })
+    }
     
 }

@@ -186,16 +186,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         
                         self.listNames.append(document.documentID)
                     }
-                    
                 }
-                
             }
             DispatchQueue.main.async {
                 self.listsTable.reloadData()
             }
         }
-        
-        
     }
     
 
