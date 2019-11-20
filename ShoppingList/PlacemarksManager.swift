@@ -17,59 +17,7 @@ class PlacemarksManager{
     var annotationsList = [MKPointAnnotation]()
     var places = [MKPlacemark]()
     let db = Firestore.firestore()
-    
-    
-    
-    
-    func loadListNames(){
-        db.collection("UserLists").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                if let querySnapshot = querySnapshot{
-                    for document in querySnapshot.documents {
-                        
-                        self.listNames.append(document.documentID)
-                    }
-                }
-            }
-        }
-    }
-    
-    func loadCollections(){
-        
-        
-        if !listNames.isEmpty{
-            for i in 1...listNames.count - 1{
-                db.collection("UserLists").document(listNames[i]).collection(listNames[i]).whereField("Location", isEqualTo: true)
-                    .getDocuments() { (querySnapshot, err) in
-                        if let err = err {
-                            print("Error getting documents: \(err)")
-                        } else {
-                            for document in querySnapshot!.documents {
-                                print("\(document.documentID) => \(document.data())")
-                            }
-                        }
-                }
-                
-                
-                
-                //                db.collection("UserLists").document(listNames[i]).collection(listNames[i]).getDocuments() { (querySnapshot, err) in
-                //                    if let err = err {
-                //                        print("Error getting documents: \(err)")
-                //                    } else {
-                //                        if let querySnapshot = querySnapshot{
-                //                            for document in querySnapshot.documents {
-                //                                self.listNames?.append(document.documentID)
-                //                            }
-                //                        }
-                //                    }
-                //
-                //                }
-            }
-            
-        }
-    }
+    let persistanceManager = PersistanceManager()
     
     func loadData() {
         loadListNames()
@@ -77,15 +25,82 @@ class PlacemarksManager{
         loadCollections()
         print(userLocations.count)
         
+        //groupQuery()
         
-        userLocations.append("Safeway")
-        userLocations.append("Target")
-        userLocations.append("Costco")
+        //persistanceManager.loadData()
+        //persistanceManager.loadCollections()
+        
+        
+        
+        userLocations.append("Grocery Store")
+        //userLocations.append("Target")
+        //userLocations.append("Costco")
         
         print(annotationsList.count)
     }
+       
     
+    
+    func loadListNames(){
+        DispatchQueue.main.async {
+            print("first")
+            self.db.collection("UserLists").getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    if let querySnapshot = querySnapshot{
+                        for document in querySnapshot.documents {
+                            
+                            self.listNames.append(document.documentID)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    
+    func loadCollections(){
+        DispatchQueue.main.async{
+            print("second")
+            if !self.listNames.isEmpty{
+                for i in 1...self.listNames.count - 1{
+                self.db.collection("UserLists").document(self.listNames[i]).collection(self.listNames[i]).whereField("Location", isEqualTo: true)
+                        .getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for document in querySnapshot!.documents {
+                                    print("\(document.documentID) => \(document.data())")
+                                }
+                            }
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
+    func groupQuery(){
+        db.collectionGroup("UserLists").whereField("Location", isEqualTo: true).getDocuments { (snapshot, error) in
+            // ...
+            if let error = error{
+                print("Error getting documents: \(error)")
+            }else{
+                for document in snapshot!.documents{
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }
+        
+
+    }
+    
+   
     func performSearch(){
+        print("third")
         if userLocations.count != 0{
             for i in 1...userLocations.count-1{
                 let request = MKLocalSearch.Request()

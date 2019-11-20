@@ -93,6 +93,8 @@ class AddListItemViewController: UIViewController{
         
         itemName.text = ""
         itemLocation.text = ""
+        status2.isHidden = true
+        status1.isHidden = false
         status = false
         
     }

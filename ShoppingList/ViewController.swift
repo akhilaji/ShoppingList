@@ -40,6 +40,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addGestureRecognizer(tap)
         
         placemarksManager.loadData()
+        //persistanceManager.loadData()
+        //persistanceManager.loadCollections()
+        
+        //print(persistanceManager.userLists.count)
+        //print(persistanceManager.listNames.count)
         
         if (CLLocationManager.locationServicesEnabled())
         {
@@ -56,7 +61,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         if placemarksManager.userLocations.count != 0{
-            for i in 1...placemarksManager.userLocations.count-1{
+            for i in 0...placemarksManager.userLocations.count - 1{
                 let request = MKLocalSearch.Request()
                 request.naturalLanguageQuery = placemarksManager.userLocations[i]
                 
@@ -66,7 +71,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     guard let response = response else {
                         return
                     }
-                    print( response.mapItems )
+                    //print( response.mapItems )
                     var matchingItems:[MKMapItem] = []
                     matchingItems = response.mapItems
                     for i in 1...matchingItems.count - 1
@@ -82,6 +87,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         loadData()
+        
     }
     
     
@@ -211,5 +217,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
+    
+    
 }
 

@@ -26,6 +26,7 @@
 		EB5E3866237262D2005F7314 /* PictureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E3865237262D2005F7314 /* PictureViewCell.swift */; };
 		EB5E38702381DD01005F7314 /* ImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E386F2381DD01005F7314 /* ImageStorageService.swift */; };
 		EB5E3872238371D2005F7314 /* PlacemarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E3871238371D1005F7314 /* PlacemarksManager.swift */; };
+		EB5E387423847703005F7314 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5E387323847703005F7314 /* DetailViewController.swift */; };
 		EBA10000236CE92C00F729C7 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */; };
 		EBA10001236E4DC700F729C7 /* Pods_ShoppingList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE698341332C63E14CB276E /* Pods_ShoppingList.framework */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		EB5E3865237262D2005F7314 /* PictureViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureViewCell.swift; sourceTree = "<group>"; };
 		EB5E386F2381DD01005F7314 /* ImageStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageService.swift; sourceTree = "<group>"; };
 		EB5E3871238371D1005F7314 /* PlacemarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacemarksManager.swift; sourceTree = "<group>"; };
+		EB5E387323847703005F7314 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		EBA1FFFF236CE92C00F729C7 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +167,7 @@
 				EB42C056236B9B67000FFC01 /* Main.storyboard */,
 				EB42C054236B9B67000FFC01 /* ViewController.swift */,
 				EB5E385D23723BCE005F7314 /* ItemsViewController.swift */,
+				EB5E387323847703005F7314 /* DetailViewController.swift */,
 				EB5E3863237261C9005F7314 /* PicturesViewController.swift */,
 				EB5E3871238371D1005F7314 /* PlacemarksManager.swift */,
 				EB5E386F2381DD01005F7314 /* ImageStorageService.swift */,
@@ -454,6 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB5E387423847703005F7314 /* DetailViewController.swift in Sources */,
 				EB5E3872238371D2005F7314 /* PlacemarksManager.swift in Sources */,
 				EB1EAB51236CAABE007200D5 /* UserListsTableViewCell.swift in Sources */,
 				EB42C055236B9B67000FFC01 /* ViewController.swift in Sources */,

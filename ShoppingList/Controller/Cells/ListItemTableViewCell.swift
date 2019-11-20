@@ -12,6 +12,8 @@ import UIKit
 class ListItemTableViewCell: UITableViewCell{
 
     @IBOutlet weak var itemName: UILabel!
+    @IBOutlet weak var itemCompletion: UIImageView!
+    
     override func awakeFromNib(){
         super.awakeFromNib()
     }

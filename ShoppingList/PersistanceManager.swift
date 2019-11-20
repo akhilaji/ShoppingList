@@ -13,6 +13,7 @@ class PersistanceManager {
     
     let db = Firestore.firestore()
     var userLists = [String]()
+    var listNames:[String] = []
     //let viewController = ViewController()
     
     
@@ -57,6 +58,39 @@ class PersistanceManager {
         
     }
     
+    func loadCollections(){
+        print("second")
+        if !listNames.isEmpty{
+            for i in 1...listNames.count - 1{
+                db.collection("UserLists").document(listNames[i]).collection(listNames[i]).whereField("Location", isEqualTo: true)
+                    .getDocuments() { (querySnapshot, err) in
+                        if let err = err {
+                            print("Error getting documents: \(err)")
+                        } else {
+                            for document in querySnapshot!.documents {
+                                print("\(document.documentID) => \(document.data())")
+                            }
+                        }
+                }
+            }
+            
+        }
+    }
+    
+    func groupQuery(){
+        db.collectionGroup("UserLists").whereField("Location", isEqualTo: true).getDocuments { (snapshot, error) in
+            // ...
+            if let error = error{
+                print("Error getting documents: \(error)")
+            }else{
+                for document in snapshot!.documents{
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }
+        
+
+    }
     
     
     
