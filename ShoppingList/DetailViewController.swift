@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 import Firebase
+import CoreLocation
+import MapKit
 
 
-class DetailViewController: UIViewController{
+
+class DetailViewController: UIViewController, CLLocationManagerDelegate{
     
     var listName = ""
     var name = ""
@@ -23,6 +26,7 @@ class DetailViewController: UIViewController{
     var servingSizeVar = ""
     var imgURL = ""
     var RecepieImage:UIImage?
+    var regionInMeters: Double = 5000
     
     
     @IBOutlet weak var itemLabel: UILabel!
@@ -35,6 +39,7 @@ class DetailViewController: UIViewController{
     @IBOutlet weak var readyInLabel: UILabel!
     @IBOutlet weak var servingsLabel: UILabel!
     @IBOutlet weak var recepiesLabel: UILabel!
+    @IBOutlet weak var map: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,14 +64,76 @@ class DetailViewController: UIViewController{
                     print(documentData)
                     self.location = documentData!["Location"] as! String
                     self.itemLocationValue.text = self.location
+                    
+                    let request = MKLocalSearch.Request()
+                    request.naturalLanguageQuery = self.location
+                           
+                           let search = MKLocalSearch(request: request)
+                           
+                           search.start { response, _ in
+                               guard let response = response else {
+                                   return
+                               }
+                               //print( response.mapItems )
+                               var matchingItems:[MKMapItem] = []
+                               matchingItems = response.mapItems
+                               for i in 1...matchingItems.count - 1
+                               {
+                                   let place = matchingItems[i].placemark
+                                   let annotation = MKPointAnnotation()
+                                   annotation.coordinate = place.location!.coordinate
+                                   annotation.title = place.name
+                                   
+                                   self.map.addAnnotation(annotation)
+                               }
+                               self.map.showAnnotations(self.map.annotations, animated: true)
+                               
+                           }
                 }
             }
         }
         
+        apiCall()
+        imageProccessing()
+        
+        print("past resume")
+        let checkNil = self.itemTitleVar
+        if checkNil.isEmpty != true{
+            self.itemTitle.text = self.itemTitleVar
+            self.servingTime.text = self.servingTimeVar
+            self.servingSize.text = self.servingSizeVar
+            self.itemImage.image = self.RecepieImage
+            self.itemImage.layer.cornerRadius = 5
+            self.itemImage.clipsToBounds = true
+            
+            self.readyInLabel.isHidden = false
+            self.servingsLabel.isHidden = false
+            self.recepiesLabel.isHidden = false
+            
+        }
+        
+        var locationManager: CLLocationManager!
+        if (CLLocationManager.locationServicesEnabled())
+        {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+        
+        if let location = locationManager.location?.coordinate{
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            self.map.setRegion(region, animated: true)
+        }
+        
+       
+    }
     
+    func apiCall(){
         //create API Call
         var s = DispatchSemaphore(value: 0)
-        let itemName = name.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let itemName = self.name.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         let urlAsString = "https://api.spoonacular.com/recipes/search?apiKey=5f6be10b86e24c2bb7aad528551bb0f0&query="+itemName+"&number=1"
         
         let url = URL(string: urlAsString)
@@ -81,9 +148,9 @@ class DetailViewController: UIViewController{
             
             let decoder = JSONDecoder()
             var jsonResult = (try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
-                       if (err != nil) {
-                           print("JSON Error \(err!.localizedDescription)")
-                       }
+            if (err != nil) {
+                print("JSON Error \(err!.localizedDescription)")
+            }
             print(jsonResult)
             
             self.apiResults = jsonResult["results"] as! NSMutableArray
@@ -104,14 +171,16 @@ class DetailViewController: UIViewController{
             
             
             s.signal()
-
+            
         })
-
+        
         jsonQuery.resume()
         s.wait(timeout: .now() + 2)
-        
-        
-        let pictureURL = URL(string: "https://spoonacular.com/recipeImages/" + imgURL)
+    }
+    
+    func imageProccessing(){
+        var s = DispatchSemaphore(value: 0)
+        let pictureURL = URL(string: "https://spoonacular.com/recipeImages/" + self.imgURL)
         let session  = URLSession(configuration: .default)
         
         let imageDownloader = session.dataTask(with: pictureURL!) { (data, response, error) in
@@ -125,26 +194,10 @@ class DetailViewController: UIViewController{
                     
                 }
             }
+            s.signal()
         }
         imageDownloader.resume()
-        
-        print("past resume")
-        let checkNil = self.itemTitleVar
-        if checkNil.isEmpty != true{
-            self.itemTitle.text = self.itemTitleVar
-            self.servingTime.text = self.servingTimeVar
-            self.servingSize.text = self.servingSizeVar
-            self.itemImage.image = self.RecepieImage
-            
-            self.readyInLabel.isHidden = false
-            self.servingsLabel.isHidden = false
-            self.recepiesLabel.isHidden = false
-        }
-
-        
-        
-        
-  
+        s.wait(timeout: .now() + 2)
     }
     @IBAction func markAsCompleted(_ sender: Any) {
         var itemReference = db.collection("UserLists").document(listName).collection(listName).document(name)
