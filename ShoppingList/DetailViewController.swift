@@ -21,6 +21,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate{
     var location = ""
     var db = Firestore.firestore()
     var apiResults:NSMutableArray?
+    var resultCount:NSNumber?
     var itemTitleVar = ""
     var servingTimeVar = ""
     var servingSizeVar = ""
@@ -153,21 +154,31 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate{
             }
             print(jsonResult)
             
-            self.apiResults = jsonResult["results"] as! NSMutableArray
+            self.resultCount = jsonResult["totalResults"] as? NSNumber
+            print(Int(self.resultCount!.intValue))
+            let numValofResult = Int(self.resultCount!.intValue)
+            print(numValofResult)
             
-            print(self.apiResults)
+            if numValofResult > 0{
+                self.apiResults = jsonResult["results"] as! NSMutableArray
+                
+                print(self.apiResults)
+                
+                let data = self.apiResults?[0] as? [String: AnyObject]
+                print((data?["title"])!)
+                
+                
+                print("printing saved data")
+                self.itemTitleVar = (data?["title"])! as! String
+                print(self.itemTitleVar)
+                self.servingTimeVar = String(describing: data!["readyInMinutes"])
+                print(self.servingTimeVar)
+                self.servingSizeVar = String(describing: data!["servings"])
+                self.imgURL = data!["image"] as! String
+            }else{
+                print("noResultsFound")
+            }
             
-            let data = self.apiResults?[0] as? [String: AnyObject]
-            print((data?["title"])!)
-            
-            
-            print("printing saved data")
-            self.itemTitleVar = (data?["title"])! as! String
-            print(self.itemTitleVar)
-            self.servingTimeVar = String(describing: data!["readyInMinutes"])
-            print(self.servingTimeVar)
-            self.servingSizeVar = String(describing: data!["servings"])
-            self.imgURL = data!["image"] as! String
             
             
             s.signal()
