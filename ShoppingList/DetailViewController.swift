@@ -155,9 +155,8 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate{
             print(jsonResult)
             
             self.resultCount = jsonResult["totalResults"] as? NSNumber
-            print(Int(self.resultCount!.intValue))
             let numValofResult = Int(self.resultCount!.intValue)
-            print(numValofResult)
+           
             
             if numValofResult > 0{
                 self.apiResults = jsonResult["results"] as! NSMutableArray
@@ -170,10 +169,14 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate{
                 
                 print("printing saved data")
                 self.itemTitleVar = (data?["title"])! as! String
+                
                 print(self.itemTitleVar)
-                self.servingTimeVar = String(describing: data!["readyInMinutes"])
+                let min = data!["readyInMinutes"] as! NSNumber
+                self.servingTimeVar = String(min.intValue)
                 print(self.servingTimeVar)
-                self.servingSizeVar = String(describing: data!["servings"])
+                
+                let size = data!["servings"] as! NSNumber
+                self.servingSizeVar = String(size.intValue)
                 self.imgURL = data!["image"] as! String
             }else{
                 print("noResultsFound")
