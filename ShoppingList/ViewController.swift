@@ -125,14 +125,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         
         let itemName = listNames[indexPath.row]
-        persistanceManager.userLists.remove(at: indexPath.row)
-        db.collection("UserLists").whereField("name", isEqualTo: itemName).getDocuments { (querySnapshot, error) in
-            if error != nil {
+        db.collection("UserLists").document(itemName).delete { (error) in
+            if let error = error{
                 print(error)
-            } else {
-                for document in querySnapshot!.documents {
-                    document.reference.delete()
-                }
             }
         }
         loadData()

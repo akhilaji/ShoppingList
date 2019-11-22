@@ -66,6 +66,28 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell.EditingStyle{
+        return UITableViewCell.EditingStyle.delete
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool{
+        return true
+    }
+    
+    //Delete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+    {
+        
+        let itemName = itemNames[indexPath.row]
+        db.collection("UserLists").document(listName).collection(listName).document(itemName).delete(completion: { (error) in
+            if let error = error{
+                print(error)
+            }
+        })
+        
+        loadData()
+        self.itemsTable.reloadData()
+    }
     
     @IBAction func add(_ sender: Any) {
     }

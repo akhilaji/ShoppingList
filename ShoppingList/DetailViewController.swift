@@ -50,7 +50,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate{
         markAsCompleted.clipsToBounds = true
         readyInLabel.isHidden = true
         servingsLabel.isHidden = true
-        recepiesLabel.isHidden = true
+        //recepiesLabel.isHidden = true
         
         //Retreive Data from the list item
         var itemReference = db.collection("UserLists").document(listName).collection(listName).document(name)
@@ -101,7 +101,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate{
         let checkNil = self.itemTitleVar
         if checkNil.isEmpty != true{
             self.itemTitle.text = self.itemTitleVar
-            self.servingTime.text = self.servingTimeVar
+            self.servingTime.text = self.servingTimeVar + " minutes"
             self.servingSize.text = self.servingSizeVar
             self.itemImage.image = self.RecepieImage
             self.itemImage.layer.cornerRadius = 5
@@ -109,7 +109,7 @@ class DetailViewController: UIViewController, CLLocationManagerDelegate{
             
             self.readyInLabel.isHidden = false
             self.servingsLabel.isHidden = false
-            self.recepiesLabel.isHidden = false
+            //self.recepiesLabel.isHidden = false
             
         }
         
